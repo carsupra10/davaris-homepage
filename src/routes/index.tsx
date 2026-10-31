@@ -142,7 +142,7 @@ function Index() {
           <button className="flex items-center gap-3 text-sm uppercase tracking-wide">
             <span className="block h-px w-8 bg-ink-foreground md:w-12" /> <span className="hidden sm:inline">Menu</span>
           </button>
-          <span className="absolute left-1/2 -translate-x-1/2 text-xl tracking-[0.15em] md:text-3xl">DAVARIS</span>
+          <span className="absolute left-1/2 -translate-x-1/2 text-lg tracking-[0.12em] md:text-3xl">DAVARIS</span>
           <span className="w-10" />
         </header>
         <a href="#" className="fixed right-4 top-3 z-50 inline-flex items-center gap-1 rounded-md bg-primary px-2.5 py-2 text-xs md:right-12 md:gap-2 md:px-4 md:py-2.5 md:text-sm uppercase text-primary-foreground md:right-12">
