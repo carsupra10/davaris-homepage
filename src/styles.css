@@ -28,6 +28,9 @@
   --radius-4xl: calc(var(--radius) + 16px);
   --font-sans: "Syne", "Helvetica Neue", sans-serif;
   --color-rose: var(--rose);
+  --color-peach-1: var(--peach-1);
+  --color-peach-2: var(--peach-2);
+  --color-peach-3: var(--peach-3);
   --color-ink: var(--ink);
   --color-ink-foreground: var(--ink-foreground);
   --color-background: var(--background);
@@ -70,6 +73,9 @@
   --background: oklch(0.975 0.008 70);
   --foreground: oklch(0.22 0.015 50);
   --rose: oklch(0.74 0.04 40);
+  --peach-1: oklch(0.95 0.03 55);
+  --peach-2: oklch(0.88 0.08 55);
+  --peach-3: oklch(0.8 0.13 52);
   --ink: oklch(0.2 0.01 50);
   --ink-foreground: oklch(0.96 0.01 70);
   --card: oklch(1 0 0);
@@ -148,4 +154,14 @@
     background-color: var(--color-background);
     color: var(--color-foreground);
   }
+}
+
+@keyframes hero-zoom { from { transform: scale(1.15); } to { transform: scale(1); } }
+@keyframes rise { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: none; } }
+@utility animate-hero-zoom { animation: hero-zoom 2.4s cubic-bezier(.2,.7,.2,1) both; }
+@utility animate-rise { animation: rise 1.2s cubic-bezier(.2,.7,.2,1) both; }
+@utility reveal {
+  opacity: 0; transform: translateY(40px);
+  transition: opacity 1s cubic-bezier(.2,.7,.2,1), transform 1s cubic-bezier(.2,.7,.2,1);
+  &.is-visible { opacity: 1; transform: none; }
 }
