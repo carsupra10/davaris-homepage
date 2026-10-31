@@ -71,9 +71,9 @@ function ExpandingImage() {
   return (
     <div ref={ref} className="relative h-[250vh]">
       <div className="sticky top-0 flex h-screen flex-col items-center justify-center overflow-hidden">
-        <h2 className="absolute top-[18vh] z-0 text-5xl uppercase md:text-8xl" style={{ opacity: 1 - e }}>Collections</h2>
+        <h2 className="absolute top-[18vh] z-0 text-4xl uppercase md:text-8xl" style={{ opacity: 1 - e }}>Collections</h2>
         <img src={fancy} alt="" className="relative z-10 rounded-md object-cover"
-          style={{ width: `${25 + e * 75}vw`, height: `${22 + e * 78}vh`, borderRadius: `${(1 - e) * 8}px` }} />
+          style={{ width: `${(typeof window !== "undefined" && window.innerWidth < 768 ? 55 : 25) + e * (typeof window !== "undefined" && window.innerWidth < 768 ? 45 : 75)}vw`, height: `${22 + e * 78}vh`, borderRadius: `${(1 - e) * 8}px` }} />
       </div>
     </div>
   );
@@ -83,7 +83,21 @@ const statColors = ["bg-card", "bg-peach-1", "bg-peach-2", "bg-peach-3", "bg-pri
 function StackedStats() {
   const [ref, p] = useStickyProgress<HTMLDivElement>();
   return (
-    <div ref={ref} className="relative h-[300vh] bg-muted">
+    <>
+    <div className="bg-muted px-6 py-24 md:hidden">
+        <Label>Who we are</Label>
+        <h2 className="text-3xl leading-tight">A leading creative partner of the women's fashion industry, we stand beside our clients to help them succeed.</h2>
+        <More />
+        <div className="mt-12 space-y-3">
+          {stats.map(([n, l], i) => (
+            <div key={l} className={`reveal rounded-md p-5 ${statColors[i]}`}>
+              <p className="text-xs uppercase tracking-widest opacity-70">{l}</p>
+              <p className="mt-4 text-4xl">{n}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+      <div ref={ref} className="relative hidden h-[300vh] bg-muted md:block">
       <div className="sticky top-0 grid h-screen items-center gap-12 px-6 md:grid-cols-2 md:px-12">
         <div>
           <Label>Who we are</Label>
@@ -104,6 +118,7 @@ function StackedStats() {
         </div>
       </div>
     </div>
+    </>
   );
 }
 
@@ -123,19 +138,19 @@ function Index() {
     <main className="overflow-x-clip bg-background text-foreground">
       <section className="relative h-screen min-h-[600px] overflow-hidden bg-rose">
         <img src={hero} alt="Draped printed silk" width={1920} height={1088} className="absolute inset-0 h-full w-full animate-hero-zoom object-cover" />
-        <header className="fixed inset-x-0 top-0 z-50 flex items-center justify-between px-6 py-4 text-ink-foreground mix-blend-difference md:px-12">
+        <header className="fixed inset-x-0 top-0 z-50 flex items-center justify-between px-4 py-4 text-ink-foreground mix-blend-difference md:px-12">
           <button className="flex items-center gap-3 text-sm uppercase tracking-wide">
-            <span className="block h-px w-12 bg-ink-foreground" /> Menu
+            <span className="block h-px w-8 bg-ink-foreground md:w-12" /> <span className="hidden sm:inline">Menu</span>
           </button>
-          <span className="text-3xl tracking-[0.15em]">DAVARIS</span>
-          <span className="w-32" />
+          <span className="absolute left-1/2 -translate-x-1/2 text-xl tracking-[0.15em] md:text-3xl">DAVARIS</span>
+          <span className="w-10" />
         </header>
-        <a href="#" className="fixed right-6 top-3 z-50 inline-flex items-center gap-2 rounded-md bg-primary px-4 py-2.5 text-sm uppercase text-primary-foreground md:right-12">
+        <a href="#" className="fixed right-4 top-3 z-50 inline-flex items-center gap-1 rounded-md bg-primary px-2.5 py-2 text-xs md:right-12 md:gap-2 md:px-4 md:py-2.5 md:text-sm uppercase text-primary-foreground md:right-12">
           E-Showroom <ArrowUpRight className="h-4 w-4" />
         </a>
         <div className="absolute bottom-16 left-6 z-10 text-ink-foreground md:left-12">
           <p className="mb-4 animate-rise text-xs uppercase tracking-[0.3em]">Est. 1980 · Textile excellence</p>
-          <h1 className="animate-rise text-6xl font-normal leading-[0.95] tracking-tight [animation-delay:0.3s] md:text-9xl">Fashion textiles<br />that inspire</h1>
+          <h1 className="animate-rise text-5xl font-normal leading-[0.95] tracking-tight [animation-delay:0.3s] sm:text-7xl md:text-9xl">Fashion textiles<br />that inspire</h1>
         </div>
       </section>
 
