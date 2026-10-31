@@ -95,7 +95,7 @@ function StackedStats() {
             const t = Math.min(1, Math.max(0, p * stats.length - i + 0.6));
             return (
               <div key={l} className={`absolute inset-x-0 rounded-md p-6 shadow-sm ${statColors[i]}`}
-                style={{ top: `${i * 9}vh`, opacity: t, transform: `translateY(${(1 - t) * 60}px)` }}>
+                style={{ top: `${i * 9}vh`, opacity: Math.min(1, t * 4), transform: `translateY(${(1 - t) * 60}px)` }}>
                 <p className="text-xs uppercase tracking-widest opacity-70">{l}</p>
                 <p className="mt-8 text-5xl md:text-6xl">{n}</p>
               </div>
