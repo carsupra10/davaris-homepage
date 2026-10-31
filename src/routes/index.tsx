@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { ArrowUpRight } from "lucide-react";
+import { useReveal, useScrollProgress, useStickyProgress } from "@/hooks/use-scroll";
 import hero from "@/assets/hero.jpg";
 import plain from "@/assets/plain.jpg";
 import fancy from "@/assets/fancy.jpg";
@@ -49,7 +50,74 @@ function More() {
   );
 }
 
+const intro = "We are a family-owned company built on heritage, excellence, and a human-centric approach.";
+function IntroText() {
+  const [ref, p] = useScrollProgress<HTMLHeadingElement>();
+  const words = intro.split(" ");
+  const lit = Math.floor(Math.min(1, p * 1.8) * words.length);
+  return (
+    <h2 ref={ref} className="max-w-5xl text-3xl leading-tight md:text-6xl">
+      {words.map((w, i) => (
+        <span key={i} className={`transition-colors duration-300 ${i < lit ? "text-foreground" : "text-muted-foreground/40"}`}>{w} </span>
+      ))}
+    </h2>
+  );
+}
+
+function ExpandingImage() {
+  const [ref, p] = useStickyProgress<HTMLDivElement>();
+  const e = Math.min(1, p * 1.25);
+  return (
+    <div ref={ref} className="relative h-[250vh]">
+      <div className="sticky top-0 flex h-screen flex-col items-center justify-center overflow-hidden">
+        <h2 className="absolute top-[18vh] z-0 text-5xl uppercase md:text-8xl" style={{ opacity: 1 - e }}>Collections</h2>
+        <img src={fancy} alt="" className="relative z-10 rounded-md object-cover"
+          style={{ width: `${25 + e * 75}vw`, height: `${22 + e * 78}vh`, borderRadius: `${(1 - e) * 8}px` }} />
+      </div>
+    </div>
+  );
+}
+
+const statColors = ["bg-card", "bg-peach-1", "bg-peach-2", "bg-peach-3", "bg-primary"];
+function StackedStats() {
+  const [ref, p] = useStickyProgress<HTMLDivElement>();
+  return (
+    <div ref={ref} className="relative h-[300vh] bg-muted">
+      <div className="sticky top-0 grid h-screen items-center gap-12 px-6 md:grid-cols-2 md:px-12">
+        <div>
+          <Label>Who we are</Label>
+          <h2 className="text-3xl leading-tight md:text-5xl">A leading creative partner of the women's fashion industry, we stand beside our clients to help them succeed.</h2>
+          <More />
+        </div>
+        <div className="relative h-[70vh]">
+          {stats.map(([n, l], i) => {
+            const t = Math.min(1, Math.max(0, p * stats.length - i + 0.6));
+            return (
+              <div key={l} className={`absolute inset-x-0 rounded-md p-6 shadow-sm ${statColors[i]}`}
+                style={{ top: `${i * 9}vh`, opacity: t, transform: `translateY(${(1 - t) * 60}px)` }}>
+                <p className="text-xs uppercase tracking-widest opacity-70">{l}</p>
+                <p className="mt-8 text-5xl md:text-6xl">{n}</p>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function Parallax({ src, children }: { src: string; children: React.ReactNode }) {
+  const [ref, p] = useScrollProgress<HTMLElement>();
+  return (
+    <section ref={ref} className="relative h-screen overflow-hidden bg-ink">
+      <img src={src} alt="" loading="lazy" className="absolute inset-0 h-[130%] w-full object-cover opacity-70" style={{ transform: `translateY(${-p * 25}%) scale(${1.1 - p * 0.1})` }} />
+      <div className="relative z-10 flex h-full items-center justify-center px-6 text-ink-foreground">{children}</div>
+    </section>
+  );
+}
+
 function Index() {
+  useReveal();
   return (
     <main className="bg-background text-foreground">
       <section className="relative h-screen min-h-[600px] overflow-hidden bg-rose">
