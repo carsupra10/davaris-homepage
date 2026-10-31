@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { ArrowUpRight } from "lucide-react";
 import { useReveal, useScrollProgress, useStickyProgress } from "@/hooks/use-scroll";
@@ -106,7 +107,7 @@ function StackedStats() {
   );
 }
 
-function Parallax({ src, children }: { src: string; children: React.ReactNode }) {
+function Parallax({ src, children }: { src: string; children: ReactNode }) {
   const [ref, p] = useScrollProgress<HTMLElement>();
   return (
     <section ref={ref} className="relative h-screen overflow-hidden bg-ink">
